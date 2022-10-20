@@ -11,14 +11,23 @@ import DepState from './images/dep_of_state_logo.png'
 
 
 export default function InputAdornments() {
-  const [values, setValues] = React.useState({
 
+  const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
   });
 
+
+  // This is for checking the max lengths along with formatting the string into the correct format
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    if (event.target.value.length <= 11){
+      if ((event.target.value.length == 3) || (event.target.value.length == 6)) {
+        event.target.value = event.target.value.concat("-");
+      } else if (event.target.value.endsWith("-")) {
+        event.target.value = event.target.value.substring(0, event.target.value.length - 1);
+      }
+      setValues({ ...values, [prop]: event.target.value});
+    }
   };
 
   const handleClickShowPassword = () => {
