@@ -22,12 +22,12 @@ export default function Vendia(){
 
    async function addPerson(){
       const productResponse = await entities.person.add({
-         firstName: "new",
-         lastName: "person",
-         dl: "ca23199",
-         dob: "09291994",
-         passportNumber: "415156",
-         passportExpiration: "09292023"
+         firstName: "Bobby",
+         lastName: "McGee",
+         dl: "NV25451",
+         dob: "10310970",
+         passportNumber: "16513",
+         passportExpiration: "08202027"
        });
       console.log(productResponse)
       }
@@ -43,7 +43,6 @@ export default function Vendia(){
       <div>
       <Grid
          container
-         spacing={0}
          direction="column"
          alignItems="center"
          justifyContent="center"
@@ -53,16 +52,14 @@ export default function Vendia(){
          
          <button onClick={handleSubmitAdd}>add</button>
          { loading === false && 
-         <div>
-            <Grid xs={12}>
-               {person.items[3].firstName}
-            <Grid xs={12}>
-               {person.items[3].lastName}
-            </Grid>
-            <Grid xs={12}>
-               {person.items[3].dl}
-            </Grid>
-            </Grid>
+         <div >
+            <center>
+            {person.items[3].firstName}
+            </center>
+            {person.items[3].lastName}
+            <center>
+            {person.items[3].dl}
+            </center>
          </div>
          }
          </Grid>
