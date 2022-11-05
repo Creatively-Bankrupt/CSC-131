@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://vendia.net/schemas/demos/track-and-trace.json",
+  "title": "Track and Trace",
+  "description": "Track and trace shipments among a manufacturer, shipper, and retailer",
+  "type": "object",
+  "properties": {
+    "person": {
+      "description": "Personal information",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "description": "Persons name",
+            "type": "string"
+          },
+          "lastName": {
+            "description": "Persons name",
+            "type": "string"
+          },
+          "dl": {
+            "description": "Persons dl",
+            "type": "string"
+          },
+          "dob": {
+            "description": "Persons dob",
+            "type": "string"
+          },
+          "passportNumber": {
+            "description": "Persons pn",
+            "type": "string"
+          },
+          "passportExpiration": {
+            "description": "Persons passport expiration",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
