@@ -34,6 +34,10 @@
           "passportExpiration": {
             "description": "Persons passport expiration",
             "type": "string"
+          },
+          "ssn": {
+            "description": "Persons ssn",
+            "type": "string"
           }
         }
       }

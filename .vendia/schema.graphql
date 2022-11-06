@@ -203,6 +203,7 @@ input Self_person_ConditionInput_ {
   lastName: Vendia_ModelStringInput_
   passportExpiration: Vendia_ModelStringInput_
   passportNumber: Vendia_ModelStringInput_
+  ssn: Vendia_ModelStringInput_
   _and: [Self_person_ConditionInput_]
   _or: [Self_person_ConditionInput_]
   _not: Self_person_ConditionInput_
@@ -216,6 +217,7 @@ input Self_person_FilterInput_ {
   lastName: Vendia_ModelStringInput_
   passportExpiration: Vendia_ModelStringInput_
   passportNumber: Vendia_ModelStringInput_
+  ssn: Vendia_ModelStringInput_
   _and: [Self_person_FilterInput_]
   _or: [Self_person_FilterInput_]
   _not: Self_person_FilterInput_
@@ -233,6 +235,7 @@ type Self_person {
   lastName: String
   passportExpiration: String
   passportNumber: String
+  ssn: String
   _owner: String
 }
 
@@ -244,6 +247,7 @@ type Self_person_Partial_ {
   lastName: String
   passportExpiration: String
   passportNumber: String
+  ssn: String
   _owner: String
 }
 
@@ -275,6 +279,7 @@ input Self_person_Input_ {
   lastName: String
   passportExpiration: String
   passportNumber: String
+  ssn: String
 }
 
 input Self_person_UpdateInput_ {
@@ -284,6 +289,7 @@ input Self_person_UpdateInput_ {
   lastName: String
   passportExpiration: String
   passportNumber: String
+  ssn: String
 }
 
 input Self_person_PartialInput_ {
@@ -293,6 +299,7 @@ input Self_person_PartialInput_ {
   lastName: String
   passportExpiration: String
   passportNumber: String
+  ssn: String
 }
 
 input Vendia_Block_transactions_transactionsItem_ConditionInput_ {

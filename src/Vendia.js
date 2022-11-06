@@ -1,5 +1,6 @@
 import { createVendiaClient } from "@vendia/client";
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
+
 
 import React from 'react';
 
@@ -22,17 +23,27 @@ class Vendia extends React.Component {
 
       const listPerson = await entities.person.list({
          filter: {
-            dl: {
+            ssn: {
                contains: this.props.value, 
             }
          }
       });
 
-      alert(listPerson.items[0].firstName 
-         + " " 
-         + listPerson.items[0].lastName
-         + " " 
-         + listPerson.items[0].dl);
+      alert(
+         "First Name: \n"
+         +
+         listPerson.items[0].firstName + "\n" + "\n"
+         + "Last Name: \n" 
+         + listPerson.items[0].lastName + "\n" + "\n"
+         + "Driver License: \n" 
+         + listPerson.items[0].dl + "\n" + "\n"
+         + "Birth Date: \n"
+         + listPerson.items[0].dob + "\n" + "\n"
+         + "Passport: \n"
+         + listPerson.items[0].passportNumber + "\n" + "\n"
+         + "Social Security: \n"
+         + listPerson.items[0].ssn + "\n" + "\n"
+         );
 
    }
 
@@ -49,7 +60,10 @@ class Vendia extends React.Component {
             alignItems="center"
             justifyContent="center"
             style={{ minHeight: '10vh' }}>
-            <button onClick={this.handleSubmitList}>list</button>
+            <Button 
+            variant="outlined"
+            size="small"
+            onClick={this.handleSubmitList}>Search</Button>
          </Grid>
       )
    }

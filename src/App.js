@@ -11,26 +11,30 @@ function App() {
 
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={30}>
       <Grid item xs = {12}>
         <Other />  {/** Travel X Logo */}
       </Grid>
 
-      <Grid item xs = {12}>
+      <Grid item xs = {12}
+            alignItems="center"
+            justifyContent="center"
+      >
         <UserInput />
       </Grid>
 
-      <Grid item xs = {4}>
-        <CardsDMV /> {/** DMV Card with person info **/}
+      {/* <Grid item xs = {4}>
+        <CardsDMV /> 
       </Grid>
 
       <Grid item xs = {4}>
-        <CardsSSN /> {/** DMV Card with person info **/}
+        <CardsSSN /> 
       </Grid>
 
       <Grid item xs = {4}>
-        <CardsDOS /> {/** DMV Card with person info **/}
-      </Grid>
+        <CardsDOS /> 
+      </Grid>  */}
+      
       </Grid>
     </>
   );

@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Vendia from './Vendia';
+import CardsDMV from './CardsDMV';
 
 class UserInput extends React.Component {
 
@@ -40,9 +41,7 @@ class UserInput extends React.Component {
    render() {
       return (
          <>
-         <Vendia 
-            value={this.state.value}
-         />
+
 
          <Grid
             container
@@ -74,6 +73,9 @@ class UserInput extends React.Component {
             }}
             />
          </Grid>
+         <Vendia 
+            value={this.state.value}
+         />
          </>
        );
 
