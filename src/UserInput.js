@@ -5,74 +5,83 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Vendia from './Vendia';
 
+class UserInput extends React.Component {
 
-export default function UserInput(){
+   constructor(props) {
+      super(props);
+      this.state = {
+         value: '',
+         showPassword: false,
+      }
 
-   const [values, setValues] = React.useState({
-      password: '',
-      showPassword: false,
-    });
+      this.handleChange = this.handleChange.bind(this);
+      this.handleClickShowPassword  = this.handleClickShowPassword .bind(this);
+      this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
+   }
+   
+   handleChange(event) {
+      const value = event.target.value; //formatSSN(event.target.value);
+      this.setState({value: value});
+   }
 
-  // This is for checking the max lengths along with formatting the string into the correct format
-  const handleChange = (prop) => (event) => {
-    var value = event.target.value;
-    setValues({ ...values, [prop]: formatSSN(value)});
-  };
-  
-   const handleClickShowPassword = () => {
-      setValues({
-        ...values,
-        showPassword: !values.showPassword,
-      });
-    };
-  
-    const handleMouseDownPassword = (event) => {
+   handleClickShowPassword (event) {
+      this.setState({
+         showPassword: !this.state.showPassword,
+      })
+   }
+   
+   handleMouseDownPassword(event) {
       event.preventDefault();
     };
 
 
-   return(
+   render() {
+      return (
+         <>
+         <Vendia 
+            value={this.state.value}
+         />
 
-      <Grid 
-         container
-         spacing={0}
-         direction="column"
-         alignItems="center"
-         justifyContent="center"
-      >
-
-      <TextField
-         id="outlined-adornment-password"
-         label="Social Security Number"
-         type={values.showPassword ? 'text' : 'password'}
-         value={values.password}
-         onChange={handleChange('password')}
-         onKeyPress={(event) => {
-            if (!/[0-9]/.test(event.key)) {
-            event.preventDefault();
-            }
-         }}
-         InputProps={{
+         <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+         >
+            <TextField
+               id = "outlined-adornment-password"
+               label = "SSN"
+               type={this.state.showPassword ? 'text' : 'password'}
+               value = {this.state.value}
+               onChange = {this.handleChange}
+            InputProps={{
             endAdornment: (
                <InputAdornment position="end">
                <IconButton
                aria-label="toggle password visibility"
-               onClick={handleClickShowPassword}
-               onMouseDown={handleMouseDownPassword}
+               onClick={this.handleClickShowPassword}
+               onMouseDown={this.handleMouseDownPassword}
                edge="end"
                >
-               {values.showPassword ? <VisibilityOff /> : <Visibility />}
-               
+                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+
                </IconButton>
             </InputAdornment>
             )
-         }}
-      />
-      </Grid>
-   )
+            }}
+            />
+         </Grid>
+         </>
+       );
+
+     }
 
 }
+
+export default UserInput;
 
 // This formats the String into SSN
 
