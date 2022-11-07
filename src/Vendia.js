@@ -29,6 +29,7 @@ class Vendia extends React.Component {
          }
       });
 
+      if (listPerson.items[0].ssn == this.props.value){
       alert(
          "First Name: \n"
          +
@@ -44,7 +45,11 @@ class Vendia extends React.Component {
          + "Social Security: \n"
          + listPerson.items[0].ssn + "\n" + "\n"
          );
-
+      } else{
+         alert(
+            "No Match!"
+         )
+      }
    }
 
    handleSubmitList (event) {
