@@ -6,6 +6,7 @@ import CardsDMV from "./CardsDMV";
 import CardsSSN from "./CardsSSN";
 import CardsDOS from "./CardsDOS";
 import UserInput from "./UserInput";
+import ImageUpload from "./ImageUpload";
 
 function App() {
 
@@ -23,7 +24,11 @@ function App() {
         <UserInput />
       </Grid>
 
-      {/* <Grid item xs = {4}>
+      <Grid item xs = {4}>
+        <ImageUpload /> 
+      </Grid>
+
+       <Grid item xs = {4}>
         <CardsDMV /> 
       </Grid>
 
@@ -33,7 +38,7 @@ function App() {
 
       <Grid item xs = {4}>
         <CardsDOS /> 
-      </Grid>  */}
+      </Grid>  
       
       </Grid>
     </>
