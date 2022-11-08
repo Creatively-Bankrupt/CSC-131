@@ -29,8 +29,8 @@ class Vendia extends React.Component {
          }
       });
 
-      if (listPerson.items[0].ssn == this.props.value){
-      alert(
+      try{
+         alert(
          "First Name: \n"
          +
          listPerson.items[0].firstName + "\n" + "\n"
@@ -45,9 +45,9 @@ class Vendia extends React.Component {
          + "Social Security: \n"
          + listPerson.items[0].ssn + "\n" + "\n"
          );
-      } else{
+      } catch(error){
          alert(
-            "No Match!"
+            "This Social Security number was not found. Please try again."
          )
       }
    }
