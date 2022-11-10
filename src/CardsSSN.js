@@ -4,10 +4,35 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+
+
+function Item(props) {
+  const { sx, ...other } = props;
+  return (
+    <Box
+      sx={{
+        p: 1,
+        m: 1,
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : 'grey.100'),
+        color: (theme) => (theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800'),
+        border: '1px solid',
+        borderColor: (theme) =>
+          theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+        borderRadius: 2,
+        fontSize: '0.875rem',
+        fontWeight: '700',
+        ...sx,
+      }}
+      {...other}
+    />
+  );
+}
+
 
 export default function Content() {
   return (
-    <Paper sx={{ maxWidth: 936,maxHeight: '100%', margin: 'auto', overflow: 'hidden' }}>
+    <Paper sx={{ maxWidth: 936,maxHeight: '100%', margin: 'none', overflow: 'hidden' }}>
       <AppBar
         position="static"
         color="default"
@@ -20,39 +45,18 @@ export default function Content() {
             <Typography variant="h5" align="center">
               Social Security
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary" align="center">
-              Test User
-            </Typography>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
       <Typography variant="body2" color="text.secondary" align="center">
-      <p>
-        Test User Info listed here
-        </p>
-        <p>
-        Test User Info listed here
-        </p>
-        <p>
-        Test User Info listed here
-        </p>
-        <p>
-        Test User Info listed here
-        </p>
-        <p>
-        Test User Info listed here
-        </p>
-        <p>
-        Test User Info listed here
-        </p>
-        <p>
-        Test User Info listed here
-        </p>
-        <p>
-        Test User Info listed here
-        </p>
-        <br />
+	    <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
+	      <Item sx={{height: 200, width: 150}}>Placeholder Image</Item>
+		  <Box sx={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}}>
+		    <Item sx={{width: 250}}>Full Name</Item>
+		    <Item sx={{width: 200}}>Social Security Number</Item>
+		  </Box>
+	    </Box>
       </Typography>
     </Paper>
   );
