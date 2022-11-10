@@ -20,11 +20,13 @@ class Vendia extends React.Component {
    }
 
    async listPerson() {
+      const formatted = this.props.value;
+      const unformatted = formatted.replace("-", "");
 
       const listPerson = await entities.person.list({
          filter: {
             ssn: {
-               contains: this.props.value, 
+               contains: formatted, 
             }
          }
       });
@@ -43,7 +45,7 @@ class Vendia extends React.Component {
          + "Passport: \n"
          + listPerson.items[0].passportNumber + "\n" + "\n"
          + "Social Security: \n"
-         + listPerson.items[0].ssn + "\n" + "\n"
+         + formatted + "\n" + "\n"
          );
       } catch(error){
          alert(

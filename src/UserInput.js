@@ -23,7 +23,7 @@ class UserInput extends React.Component {
    }
    
    handleChange(event) {
-      const value = event.target.value; //formatSSN(event.target.value);
+      const value = formatSSN(event.target.value);
       this.setState({value: value});
    }
 

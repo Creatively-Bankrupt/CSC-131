@@ -54,7 +54,7 @@ export default function Content() {
 	      <Item sx={{height: 200, width: 150}}>Placeholder Image</Item>
 		  <Box sx={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}}>
 		    <Item sx={{width: 250}}>Full Name</Item>
-		    <Item sx={{width: 200}}>Social Security Number</Item>
+		    <Item sx={{width: 250}}>Social Security Number</Item>
 		  </Box>
 	    </Box>
       </Typography>

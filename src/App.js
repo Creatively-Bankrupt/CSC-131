@@ -13,6 +13,7 @@ function App() {
   return (
     <>
       <Grid container spacing={30}>
+      
       <Grid item xs = {12}>
         <Other />  {/** Travel X Logo */}
       </Grid>
@@ -24,22 +25,16 @@ function App() {
         <UserInput />
       </Grid>
 
-      <Grid item xs = {4}>
+      {/* <Grid item xs = {4}>
         <ImageUpload /> 
+      </Grid> */}
+
+      <Grid container item justifyContent="center" alignItems="center">
+        <CardsDMV/> 
+        <CardsSSN/>
+        <CardsDOS/>
       </Grid>
 
-       <Grid item xs = {4}>
-        <CardsDMV /> 
-      </Grid>
-
-      <Grid item xs = {4}>
-        <CardsSSN /> 
-      </Grid>
-
-      <Grid item xs = {4}>
-        <CardsDOS /> 
-      </Grid>  
-      
       </Grid>
     </>
   );
