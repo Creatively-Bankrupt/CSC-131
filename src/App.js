@@ -3,7 +3,9 @@ import { Grid } from "@mui/material";
 import Other from './Other';
 import UserInput from "./UserInput";
 import Vendia from "./Vendia";
-import Cards from "./Cards";
+import DMVCard from "./DMVCard";
+import SSCard from "./SSCard";
+import DOSCard from "./DOSCard";
 
 class App extends React.Component {
   
@@ -61,8 +63,16 @@ class App extends React.Component {
 
         <Vendia ssn={this.state.value} setData={this.setData}></Vendia>
 
-        <Grid container item justifyContent="center" alignItems="center">
-          { (this.state.data != null && this.state.data.items != null) && createCard(this.state.data.items[0]) }
+        <Grid container direction = "row" spacing={3}>
+          <Grid item xs = "4" sm = "4">
+          { (this.state.data != null && this.state.data.items != null) && createDMVCard(this.state.data.items[0]) }
+          </Grid>
+          <Grid item xs = "4" sm = "4">
+          { (this.state.data != null && this.state.data.items != null) && createSSCard(this.state.data.items[0]) }
+          </Grid>
+          <Grid item xs = "4" sm = "4">
+          { (this.state.data != null && this.state.data.items != null) && createDOSCard(this.state.data.items[0]) }
+          </Grid>
         </Grid>
 
       </>
@@ -75,16 +85,45 @@ class App extends React.Component {
 
 export default App;
 
-function createCard(data) {
+function createDMVCard(data) {
   if (data != null){
     return (
-      <Cards
-      type="DMV"
+      <DMVCard
+      type="Department of Motor Vehicles"
       firstName={data.firstName}
       lastName={data.lastName}
       dob={data.dob}
       dl={data.dl}
-      ></Cards>
+      ></DMVCard>
+    );
+  }
+}
+
+function createSSCard(data) {
+  if (data != null){
+    return (
+      <SSCard
+      type="Social Security"
+      firstName={data.firstName}
+      lastName={data.lastName}
+      dob={data.dob}
+      dl={data.dl}
+      ></SSCard>
+    );
+  }
+}
+
+function createDOSCard(data) {
+  if (data != null){
+    return (
+      <DOSCard
+      type="Department of State"
+      firstName={data.firstName}
+      lastName={data.lastName}
+      dob={data.dob}
+      passportNumber={data.passportNumber}
+      passportExpiration={data.passportExpiration}
+      ></DOSCard>
     );
   }
 }

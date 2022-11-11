@@ -10,6 +10,7 @@ function Item(props) {
   const { sx, ...other } = props;
   return (
     <Box
+    xs = "auto"
       sx={{
         p: 1,
         m: 1,
@@ -28,7 +29,7 @@ function Item(props) {
   );
 }
 
-export default function Cards(props) {
+export default function SSCard(props) {
   return (
     <Paper>
       <AppBar
@@ -39,7 +40,7 @@ export default function Cards(props) {
       >
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
-            <Grid item xs>
+            <Grid item xs = {12}>
             <Typography variant="h5" align="center">
               {props.type}
             </Typography>
@@ -53,9 +54,8 @@ export default function Cards(props) {
           <Item sx={{height: 200, width: 150}}>
               <Avatar variant='square' sx={{height: 200, width: 150}} src={props.image} /></Item>
           <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-            <Item sx={{width: 250}}>{props.firstName} {props.lastName}</Item>
-            <Item sx={{width: 250}}>{props.dob}</Item>
-            <Item sx={{width: 200}}>{props.dl}</Item>
+            <Item xs = "auto"> Name: {props.firstName} {props.lastName}</Item>
+            <Item xs = "auto"> Birth Date: {props.dob}</Item>
           </Box>
         </Box>
       </Typography>

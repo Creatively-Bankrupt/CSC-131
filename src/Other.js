@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 
-const pages = ['Flights', 'Customer Support', 'Refunds'];
+// const pages = ['Flights', 'Customer Support', 'Refunds'];
 
 
 const ResponsiveAppBar = () => {
@@ -72,7 +72,10 @@ const ResponsiveAppBar = () => {
           >
             TRAVELX
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+           {/* Links at top commented out until we have functionality  */}
+
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -82,7 +85,8 @@ const ResponsiveAppBar = () => {
                 {page}
               </Button>
             ))}
-          </Box>
+          </Box> */}
+          
         </Toolbar>
       </Container>
     </AppBar>
