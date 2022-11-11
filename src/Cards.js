@@ -1,11 +1,10 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
+import { Avatar } from '@mui/material';
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -29,10 +28,9 @@ function Item(props) {
   );
 }
 
-
-export default function Content() {
+export default function Cards(props) {
   return (
-    <Paper sx={{ maxWidth: 936,maxHeight: '100%', margin: 'none', overflow: 'hidden' }}>
+    <Paper>
       <AppBar
         position="static"
         color="default"
@@ -43,21 +41,23 @@ export default function Content() {
           <Grid container spacing={2} alignItems="center">
             <Grid item xs>
             <Typography variant="h5" align="center">
-              Department of Motor Vehicles
+              {props.type}
             </Typography>
             </Grid>
           </Grid>
         </Toolbar>
+        
       </AppBar>
       <Typography variant="body2" color="text.secondary" align="center">
-	    <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-	      <Item sx={{height: 200, width: 150}}>Placeholder Image</Item>
-		  <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-		    <Item sx={{width: 250}}>Full Name</Item>
-			<Item sx={{width: 250}}>Date of Birth</Item>
-		    <Item sx={{width: 200}}>Drivers License Number</Item>
-		  </Box>
-	    </Box>
+        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
+          <Item sx={{height: 200, width: 150}}>
+              <Avatar variant='square' sx={{height: 200, width: 150}} src={props.image} /></Item>
+          <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+            <Item sx={{width: 250}}>{props.firstName} {props.lastName}</Item>
+            <Item sx={{width: 250}}>{props.dob}</Item>
+            <Item sx={{width: 200}}>{props.dl}</Item>
+          </Box>
+        </Box>
       </Typography>
     </Paper>
   );

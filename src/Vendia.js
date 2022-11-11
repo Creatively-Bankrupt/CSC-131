@@ -19,45 +19,27 @@ class Vendia extends React.Component {
       this.handleSubmitList = this.handleSubmitList.bind(this);
    }
 
-   async listPerson() {
-      const formatted = this.props.value;
-      const unformatted = formatted.replace("-", "");
+   async listPerson(ssn) {
 
       const listPerson = await entities.person.list({
          filter: {
             ssn: {
-               contains: formatted, 
+               contains: ssn, 
             }
          }
       });
 
       try{
-         alert(
-         "First Name: \n"
-         +
-         listPerson.items[0].firstName + "\n" + "\n"
-         + "Last Name: \n" 
-         + listPerson.items[0].lastName + "\n" + "\n"
-         + "Driver License: \n" 
-         + listPerson.items[0].dl + "\n" + "\n"
-         + "Birth Date: \n"
-         + listPerson.items[0].dob + "\n" + "\n"
-         + "Passport: \n"
-         + listPerson.items[0].passportNumber + "\n" + "\n"
-         + "Social Security: \n"
-         + formatted + "\n" + "\n"
-         );
-      } catch(error){
-         alert(
-            "This Social Security number was not found. Please try again."
-         )
+         this.props.setData(listPerson);
+   } catch(error){
+         this.props.setData(null);
       }
    }
 
    handleSubmitList (event) {
       event.preventDefault();
-      this.listPerson();
-    }
+      this.listPerson(this.props.ssn);
+   }
 
    render(){
       return(
