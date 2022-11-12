@@ -11,6 +11,7 @@ export const client = createVendiaClient({
 });
 
 export const { entities } = client;
+export const { storage } = client;
 
 class Vendia extends React.Component {
 
