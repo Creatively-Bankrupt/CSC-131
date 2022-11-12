@@ -10,7 +10,6 @@ function Item(props) {
   const { sx, ...other } = props;
   return (
     <Box
-    xs = "auto"
       sx={{
         p: 1,
         m: 1,
@@ -29,8 +28,9 @@ function Item(props) {
   );
 }
 
-export default function SSCard(props) {
+export default function Cards(props) {
   return (
+    
     <Paper>
       <AppBar
         position="static"
@@ -40,7 +40,7 @@ export default function SSCard(props) {
       >
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
-            <Grid item xs = {12}>
+            <Grid item xs>
             <Typography variant="h5" align="center">
               {props.type}
             </Typography>
@@ -49,16 +49,41 @@ export default function SSCard(props) {
         </Toolbar>
         
       </AppBar>
+      
       <Typography variant="body2" color="text.secondary" align="center">
-        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-          <Item sx={{height: 200, width: 150}}>
-              <Avatar variant='square' sx={{height: 200, width: 150}} src={props.image} /></Item>
-          <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-            <Item xs = "auto"> Name: {props.firstName} {props.lastName}</Item>
-            <Item xs = "auto"> Birth Date: {props.dob}</Item>
+        
+
+        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', height:250}}>
+          
+          { ( (props.type == "Department of Motor Vehicles" || props.type == "Department of State") 
+          && <Item sx={{height: 200, width: 150}}>
+              <Avatar variant='square' sx={{height: 200, width: 150}} src={props.image}/>
+            </Item> 
+          ) }
+
+          <Box sx={{ mx: 'auto', width: 200 }}>
+            
+            <Item>Name: {props.firstName} {props.lastName}</Item>
+
+            <Item>Birth Date: {props.dob}</Item>
+
+            { ( (props.type == "Department of Motor Vehicles") 
+            && <Item>Drivers License: {props.dl}</Item> 
+            ) }
+            
+            { ( (props.type == "Department of State") 
+            && <Item>Passport Number: {props.passportNumber}</Item> 
+            ) }
+
+            { ( (props.type == "Department of State") 
+            && <Item>Passport Expiration: {props.passportExpiration}</Item>            
+            ) }
+
+
           </Box>
         </Box>
       </Typography>
     </Paper>
+  
   );
 }

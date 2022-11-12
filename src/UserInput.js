@@ -27,7 +27,7 @@ export default class UserInput extends React.Component{
          <TextField
             id = "outlined-adornment-password"
             label = "SSN"
-            type={this.props.showPassword ? 'text' : 'password'}
+            type= {this.props.showPassword ? 'text' : 'password'}
             value = {this.props.password}
             onChange = {this.props.handleChange}
             InputProps={

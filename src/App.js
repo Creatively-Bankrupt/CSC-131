@@ -3,23 +3,28 @@ import { Grid } from "@mui/material";
 import Other from './Other';
 import UserInput from "./UserInput";
 import Vendia from "./Vendia";
-import DMVCard from "./DMVCard";
-import SSCard from "./SSCard";
-import DOSCard from "./DOSCard";
+import Buttons from "./Buttons";
+import Cards from "./Cards";
 
 class App extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
-       value: '',
-       showPassword: false,
-       data: '',
+      value: '',
+      showPassword: false,
+      data: '',
+      type: [ 'dmv' ],
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClickShowPassword  = this.handleClickShowPassword.bind(this);
     this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
     this.setData = this.setData.bind(this);
+    this.setType = this.setType.bind(this);
+  }
+
+  setType (newType) {
+    this.setState({type: newType});
   }
   
   setData (newData){
@@ -60,19 +65,33 @@ class App extends React.Component {
             ></UserInput>
           </Grid>
         </Grid>
+        
+        <Grid 
+          container 
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: '10vh' }}>
+          <Buttons value={this.state.type} setType={this.setType}></Buttons>
+        </Grid>
 
         <Vendia ssn={this.state.value} setData={this.setData}></Vendia>
 
-        <Grid container direction = "row" spacing={3}>
-          <Grid item xs = "4" sm = "4">
-          { (this.state.data != null && this.state.data.items != null) && createDMVCard(this.state.data.items[0]) }
-          </Grid>
-          <Grid item xs = "4" sm = "4">
-          { (this.state.data != null && this.state.data.items != null) && createSSCard(this.state.data.items[0]) }
-          </Grid>
-          <Grid item xs = "4" sm = "4">
-          { (this.state.data != null && this.state.data.items != null) && createDOSCard(this.state.data.items[0]) }
-          </Grid>
+        <Grid container item justifyContent="center" alignItems="center" gap={2}>
+
+            { (this.state.data != null && this.state.data.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.data.items[0]) }
+
+            { (this.state.data != null && this.state.data.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.data.items[0]) }
+
+            { (this.state.data != null && this.state.data.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.data.items[0]) }
+
+            {/* <Grid item xs = "4" sm = "4">
+            { (this.state.data != null && this.state.data.items != null &&  isTypeValid("ssn")) && createSSCard(this.state.data.items[0]) }
+            </Grid>
+            <Grid item xs = "4" sm = "4">
+            { (this.state.data != null && this.state.data.items != null &&  isTypeValid("dos")) && createDOSCard(this.state.data.items[0]) }
+            </Grid> */}
+
         </Grid>
 
       </>
@@ -85,45 +104,24 @@ class App extends React.Component {
 
 export default App;
 
-function createDMVCard(data) {
-  if (data != null){
-    return (
-      <DMVCard
-      type="Department of Motor Vehicles"
-      firstName={data.firstName}
-      lastName={data.lastName}
-      dob={data.dob}
-      dl={data.dl}
-      ></DMVCard>
-    );
-  }
+function isTypeValid(data, value){
+  if (data[0] != null) return data[0] == (value) || data[1] == (value) || data[2] == (value)
+  return false;
 }
 
-function createSSCard(data) {
+function createCard(type, data) {
   if (data != null){
     return (
-      <SSCard
-      type="Social Security"
+      <Cards
+      type={type}
       firstName={data.firstName}
       lastName={data.lastName}
-      dob={data.dob}
       dl={data.dl}
-      ></SSCard>
-    );
-  }
-}
-
-function createDOSCard(data) {
-  if (data != null){
-    return (
-      <DOSCard
-      type="Department of State"
-      firstName={data.firstName}
-      lastName={data.lastName}
       dob={data.dob}
       passportNumber={data.passportNumber}
       passportExpiration={data.passportExpiration}
-      ></DOSCard>
+      ssn={data.ssn}
+      ></Cards>
     );
   }
 }
