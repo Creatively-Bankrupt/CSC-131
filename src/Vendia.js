@@ -41,7 +41,7 @@ class Vendia extends React.Component {
       const listPerson = await ssUni.person.list({
          filter: {
             ssn: {
-               contains: ssn, 
+               contains: ssn,
             }
          }
       });
@@ -69,9 +69,14 @@ class Vendia extends React.Component {
    // run ALL 3 searches on click
    handleSubmitList (event) {
       event.preventDefault();
+      if (this.props.ssn.length === 11){
       this.listPersonDMV(this.props.ssn);
       this.listPersonSS(this.props.ssn);
       this.listPersonDOS(this.props.ssn);
+   } else {
+      alert (
+         "ERROR: PLEASE ENTER THE FULL SOCIAL SECURITY NUMBER")
+   }
    }
    render(){
       return(

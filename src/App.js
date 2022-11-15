@@ -36,14 +36,17 @@ class App extends React.Component {
   // get data from DMV search
   setDataDMV (newData){
     this.setState({dataDMV: newData});
+    console.log(this.state.dataDMV);
   }
   // get data from DMV search
   setDataSS (newData){
     this.setState({dataSS: newData});
+    console.log(this.state.dataSS);
   }
   // get data from DMV search
   setDataDOS (newData){
     this.setState({dataDOS: newData});
+    console.log(this.state.dataDOS);
   }
 
   handleChange (event) {
