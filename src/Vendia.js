@@ -1,5 +1,7 @@
 import { createVendiaClient } from "@vendia/client";
 import { Grid, Button } from "@mui/material";
+import { ssUni } from './SsClient'
+import { dosUni } from './DosClient'
 
 
 import React from 'react';
@@ -11,7 +13,6 @@ export const client = createVendiaClient({
 });
 
 export const { entities } = client;
-export const { storage } = client;
 
 class Vendia extends React.Component {
 
@@ -20,8 +21,8 @@ class Vendia extends React.Component {
       this.handleSubmitList = this.handleSubmitList.bind(this);
    }
 
-   async listPerson(ssn) {
-
+   // Search DMV Uni
+   async listPersonDMV(ssn) {
       const listPerson = await entities.person.list({
          filter: {
             ssn: {
@@ -29,21 +30,49 @@ class Vendia extends React.Component {
             }
          }
       });
-
       try{
          this.props.setData(listPerson);
    } catch(error){
          this.props.setData(null);
       }
    }
-
+   // Search Social Security Uni
+   async listPersonSS(ssn) {
+      const listPerson = await ssUni.person.list({
+         filter: {
+            ssn: {
+               contains: ssn, 
+            }
+         }
+      });
+      try{
+         this.props.setData(listPerson);
+   } catch(error){
+         this.props.setData(null);
+      }
+   }
+   // Search Department of State
+   async listPersonDOS(ssn) {
+      const listPerson = await dosUni.person.list({
+         filter: {
+            ssn: {
+               contains: ssn, 
+            }
+         }
+      });
+      try{
+         this.props.setData(listPerson);
+   } catch(error){
+         this.props.setData(null);
+      }
+   }
    handleSubmitList (event) {
       event.preventDefault();
-      this.listPerson(this.props.ssn);
+      this.listPersonSS(this.props.ssn);
    }
-
    render(){
       return(
+         <>
          <Grid
             container
             direction="column"
@@ -55,6 +84,7 @@ class Vendia extends React.Component {
             size="small"
             onClick={this.handleSubmitList}>Search</Button>
          </Grid>
+         </>
       )
    }
       
