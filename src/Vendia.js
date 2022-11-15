@@ -31,9 +31,9 @@ class Vendia extends React.Component {
          }
       });
       try{
-         this.props.setData(listPerson);
+         this.props.setDataDMV(listPerson);
    } catch(error){
-         this.props.setData(null);
+         this.props.setDataDMV(null);
       }
    }
    // Search Social Security Uni
@@ -46,9 +46,9 @@ class Vendia extends React.Component {
          }
       });
       try{
-         this.props.setData(listPerson);
+         this.props.setDataSS(listPerson);
    } catch(error){
-         this.props.setData(null);
+         this.props.setDataSS(null);
       }
    }
    // Search Department of State
@@ -61,14 +61,16 @@ class Vendia extends React.Component {
          }
       });
       try{
-         this.props.setData(listPerson);
+         this.props.setDataDOS(listPerson);
    } catch(error){
-         this.props.setData(null);
+         this.props.setDataDOS(null);
       }
    }
    handleSubmitList (event) {
       event.preventDefault();
+      this.listPersonDMV(this.props.ssn);
       this.listPersonSS(this.props.ssn);
+      this.listPersonDOS(this.props.ssn);
    }
    render(){
       return(

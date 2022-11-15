@@ -21,14 +21,29 @@ class App extends React.Component {
     this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
     this.setData = this.setData.bind(this);
     this.setType = this.setType.bind(this);
+    this.setDataSS = this.setDataSS.bind(this);
+    this.setDataDOS = this.setDataDOS.bind(this);
+    this.setDataDMV = this.setDataDMV.bind(this);
   }
 
   setType (newType) {
     this.setState({type: newType});
   }
-  
+
   setData (newData){
     this.setState({data: newData});
+  }
+  
+  setDataDMV (newData){
+    this.setState({dataDMV: newData});
+  }
+
+  setDataSS (newData){
+    this.setState({dataSS: newData});
+  }
+
+  setDataDOS (newData){
+    this.setState({dataDOS: newData});
   }
 
   handleChange (event) {
@@ -75,15 +90,15 @@ class App extends React.Component {
           <Buttons value={this.state.type} setType={this.setType}></Buttons>
         </Grid>
 
-        <Vendia ssn={this.state.value} setData={this.setData}></Vendia>
-
+        <Vendia ssn={this.state.value} setDataDMV={this.setDataDMV} setDataSS={this.setDataSS} setDataDOS={this.setDataDOS}></Vendia>
+        
         <Grid container item justifyContent="center" alignItems="center" gap={2}>
 
-            { (this.state.data != null && this.state.data.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.data.items[0]) }
+            { (this.state.dataDMV != null && this.state.dataDMV.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.dataDMV.items[0]) }
 
-            { (this.state.data != null && this.state.data.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.data.items[0]) }
+            { (this.state.dataSS != null && this.state.dataSS.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.dataSS.items[0]) }
 
-            { (this.state.data != null && this.state.data.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.data.items[0]) }
+            { (this.state.dataDOS != null && this.state.dataDOS.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.dataDOS.items[0]) }
 
             {/* <Grid item xs = "4" sm = "4">
             { (this.state.data != null && this.state.data.items != null &&  isTypeValid("ssn")) && createSSCard(this.state.data.items[0]) }
