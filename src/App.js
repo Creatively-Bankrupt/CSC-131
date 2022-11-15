@@ -29,19 +29,19 @@ class App extends React.Component {
   setType (newType) {
     this.setState({type: newType});
   }
-
+  // get unparsed data
   setData (newData){
     this.setState({data: newData});
   }
-  
+  // get data from DMV search
   setDataDMV (newData){
     this.setState({dataDMV: newData});
   }
-
+  // get data from DMV search
   setDataSS (newData){
     this.setState({dataSS: newData});
   }
-
+  // get data from DMV search
   setDataDOS (newData){
     this.setState({dataDOS: newData});
   }

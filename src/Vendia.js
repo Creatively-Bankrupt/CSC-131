@@ -66,6 +66,7 @@ class Vendia extends React.Component {
          this.props.setDataDOS(null);
       }
    }
+   // run ALL 3 searches on click
    handleSubmitList (event) {
       event.preventDefault();
       this.listPersonDMV(this.props.ssn);

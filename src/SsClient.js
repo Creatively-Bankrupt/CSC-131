@@ -8,4 +8,5 @@ export const client = createVendiaClient({
  });
 
 export const { entities } = client;
+// export entities to be used in Vendia.js search
 export const ssUni = entities;
