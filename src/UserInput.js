@@ -48,6 +48,10 @@ export default class UserInput extends React.Component{
                }
             }
          ></TextField>
+         <TextField
+            label = "Date of Birth"
+            onChange = {this.props.handleChangeDOB}
+         ></TextField>
 
          </Grid>
          </>

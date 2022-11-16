@@ -15,8 +15,10 @@ class App extends React.Component {
       showPassword: false,
       data: '',
       type: [ 'dmv' ],
+      dobValue: '',
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeDOB = this.handleChangeDOB.bind(this);
     this.handleClickShowPassword  = this.handleClickShowPassword.bind(this);
     this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
     this.setData = this.setData.bind(this);
@@ -53,6 +55,10 @@ class App extends React.Component {
     const value = event.target.value;
     this.setState({value: formatSSN(event.target.value)});
   }
+  handleChangeDOB (event) {
+    const dobValue = event.target.value;
+    this.setState({dobValue: event.target.value});
+  }
 
   handleClickShowPassword (event) {
     this.setState({
@@ -78,6 +84,7 @@ class App extends React.Component {
               password={this.state.value}
               showPassword={this.state.showPassword}
               handleChange={this.handleChange}
+              handleChangeDOB={this.handleChangeDOB}
               handleClickShowPassword={this.handleClickShowPassword}
               handleMouseDownPassword={this.handleMouseDownPassword}
             ></UserInput>
