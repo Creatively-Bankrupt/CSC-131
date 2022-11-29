@@ -29,6 +29,7 @@ function Item(props) {
 }
 
 export default function Cards(props) {
+  console.log(props.image)
   return (
     
     <Paper>

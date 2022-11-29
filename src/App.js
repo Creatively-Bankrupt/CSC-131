@@ -14,6 +14,7 @@ class App extends React.Component {
       value: '',
       showPassword: false,
       data: '',
+      file: '',
       type: [ 'dmv' ],
       dobValue: '',
     }
@@ -23,6 +24,7 @@ class App extends React.Component {
     this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
     this.setData = this.setData.bind(this);
     this.setType = this.setType.bind(this);
+    this.setFile = this.setFile.bind(this);
     this.setDataSS = this.setDataSS.bind(this);
     this.setDataDOS = this.setDataDOS.bind(this);
     this.setDataDMV = this.setDataDMV.bind(this);
@@ -49,6 +51,10 @@ class App extends React.Component {
   setDataDOS (newData){
     this.setState({dataDOS: newData});
     console.log(this.state.dataDOS);
+  }
+
+  setFile (newFile){
+    this.setState({file: newFile});
   }
 
   handleChange (event) {
@@ -100,16 +106,21 @@ class App extends React.Component {
           <Buttons value={this.state.type} setType={this.setType}></Buttons>
         </Grid>
 
-        <Vendia ssn={this.state.value} setDataDMV={this.setDataDMV} setDataSS={this.setDataSS} setDataDOS={this.setDataDOS}></Vendia>
+        <Vendia ssn={this.state.value} setDataDMV={this.setDataDMV} setDataSS={this.setDataSS} setDataDOS={this.setDataDOS} setFile={this.setFile}></Vendia>
         
         <Grid container item justifyContent="center" alignItems="center" gap={2}>
 
-            { (this.state.dataDMV != null && this.state.dataDMV.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.dataDMV.items[0]) }
+            { (this.state.dataDMV != null && this.state.dataDMV.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.dataDMV.items[0], this.state.file?.items[0]) }
 
-            { (this.state.dataSS != null && this.state.dataSS.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.dataSS.items[0]) }
+            { (this.state.dataSS != null && this.state.dataSS.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.dataSS.items[0], this.state.file?.items[0]) }
 
-            { (this.state.dataDOS != null && this.state.dataDOS.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.dataDOS.items[0]) }
+            { (this.state.dataDOS != null && this.state.dataDOS.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.dataDOS.items[0], this.state.file?.items[0]) }
+            
+            { (this.state.dataDMV != null && this.state.dataDMV.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.dataDMV.items[0], this.state.file?.items[0]) }
 
+            { (this.state.dataSS != null && this.state.dataSS.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.dataSS.items[0], this.state.file?.items[0]) }
+
+            { (this.state.dataDOS != null && this.state.dataDOS.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.dataDOS.items[0], this.state.file?.items[0]) } 
             {/* <Grid item xs = "4" sm = "4">
             { (this.state.data != null && this.state.data.items != null &&  isTypeValid("ssn")) && createSSCard(this.state.data.items[0]) }
             </Grid>
@@ -134,7 +145,7 @@ function isTypeValid(data, value){
   return false;
 }
 
-function createCard(type, data) {
+function createCard(type, data, file) {
   if (data != null){
     return (
       <Cards
@@ -146,6 +157,7 @@ function createCard(type, data) {
       passportNumber={data.passportNumber}
       passportExpiration={data.passportExpiration}
       ssn={data.ssn}
+      image={file.temporaryUrl}
       ></Cards>
     );
   }

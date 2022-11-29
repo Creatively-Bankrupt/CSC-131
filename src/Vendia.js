@@ -13,6 +13,7 @@ export const client = createVendiaClient({
 });
 
 export const { entities } = client;
+export const { storage } = client;
 
 class Vendia extends React.Component {
 
@@ -30,10 +31,27 @@ class Vendia extends React.Component {
             }
          }
       });
+      
       try{
          this.props.setDataDMV(listPerson);
+
    } catch(error){
          this.props.setDataDMV(null);
+   }
+         const listFile = await storage.files.list({
+            filter: {
+               sourceKey: {
+                  contains: "012345678" || "944291900" || "318291" || "31231251" || "354472169" || "657456456" || "964131610"
+               }
+   
+         
+            }
+         });
+         try{
+            this.props.setFile(listFile);
+           
+      } catch(error){
+            this.props.setFile(null);
       }
    }
    // Search Social Security Uni
@@ -95,7 +113,6 @@ class Vendia extends React.Component {
          </>
       )
    }
-      
 }
 
 export default Vendia;
