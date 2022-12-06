@@ -11,12 +11,8 @@ import Menu from '@mui/material/Menu';
 import Grid from '@mui/material/Grid';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import { Card } from '@mui/material';
-
-
-import BackgroundSlider from 'react-background-slider' //unused slider and images for background i couldnt get to work 
-import img_1 from './images/img_1.png'
-import img_2 from './images/img_2.png'
- 
+import GoogleIcon from '@mui/icons-material/Google';
+import Divider from '@mui/material/Divider';
 
 export default function MenuAppBar() {
     const [auth, setAuth] = React.useState(true);
@@ -36,7 +32,7 @@ export default function MenuAppBar() {
 
   return (
     <div style= {{ 
-      backgroundImage: `url("https://www.state.gov/wp-content/uploads/2020/11/shutterstock_186964970-scaled.jpg")`,
+      backgroundImage: `url("https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80")`,
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       height: "100vh",
@@ -96,22 +92,25 @@ export default function MenuAppBar() {
         )}
       </Toolbar>
     </AppBar>
-    <Grid container display="flex" direction="column" alignItems="center" justifyContent="center">
-    <Card variant="outlined" sx={{xs: 'auto', height: 350, width: 275, background: 'rgba(255,255,255, 0.9)'}} >
+    <Grid container direction="row" justifyContent="flex-end" alignItems="stretch">
+    <Card variant="outlined" sx={{xs: 'auto', height: '90vh', width: '75vh', background: 'rgba(255,255,255, 0.9)'}} >
+      <Grid container direction="column" justifyContent="center" alignItems="center" style={{height:'100vh' }}>
           <Typography 
-            variant="h5" 
+            variant="h3" 
+            align="center"
             sx = {{
-              fontFamily: 'Tahoma',
-              fontWeight: 700, 
+              fontFamily: 'Montserrat',
+              fontWeight: 500, 
               color: '#2D69CC'
               }}>
             Login 
           </Typography>
+
           <TextField
             required
             label="Email"
             id="outlined-start-adornment"
-            sx={{ m: 1, width: '25ch'}}
+            sx={{ m: 1, width: '35ch'}}
           />
 
           <TextField
@@ -120,17 +119,37 @@ export default function MenuAppBar() {
           label="Password"
           type="password"
           autoComplete="current-password"
-          sx={{ m: 1, width: '25ch'}}
+          sx={{ m: 1, width: '35ch'}}
         />
-
-        <Button variant="contained" sx= {{bgcolor: '#2D69CC', color: '#FFFFFF', fontFamily: 'monospace', }}>
+        <Button variant="contained" alignItems="center" sx= {{bgcolor: '#2D69CC', color: '#FFFFFF', fontFamily: 'monospace',m: 1, width: '25ch'}}>
           Sign In
         </Button>
+
+        <Divider sx = {{fontFamily: 'Montserrat', color: '#2D69CC', width:'90%', height:'2%'}}>or</Divider>
+
+        <Typography 
+            variant="h6" 
+            align="center"
+            sx = {{
+              fontFamily: 'Montserrat',
+              fontWeight: 500, 
+              color: '#2D69CC'
+              }}>
+            Login with 
+          </Typography>
+
+          <Button variant="outlined" startIcon={<GoogleIcon />} sx={{ m: 1, width: '25ch',color: '#2D69CC'}}>
+            Google
+          </Button>
+
+          <Divider sx = {{width:'80%', height:'2%'}}></Divider>
+
+          <Button variant="text" sx = {{fontFamily: 'Montserrat',fontWeight: 500, color: '#2D69CC'}}>Need an account? Sign up.</Button>
+
+        </Grid>
        </Card> 
     </Grid>
   </div>
-
-  
 );
 }
 
