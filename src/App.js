@@ -58,12 +58,13 @@ class App extends React.Component {
   }
 
   handleChange (event) {
-    const value = event.target.value;
-    this.setState({value: formatSSN(event.target.value)});
+    const ssnValue = event.target.value;
+    this.setState({value: formatSSN(ssnValue)});
   }
+
   handleChangeDOB (event) {
     const dobValue = event.target.value;
-    this.setState({dobValue: event.target.value});
+    this.setState({dobValue: formatDOB(dobValue)});
   }
 
   handleClickShowPassword (event) {
@@ -91,6 +92,7 @@ class App extends React.Component {
               showPassword={this.state.showPassword}
               handleChange={this.handleChange}
               handleChangeDOB={this.handleChangeDOB}
+              dobValue={this.state.dobValue}
               handleClickShowPassword={this.handleClickShowPassword}
               handleMouseDownPassword={this.handleMouseDownPassword}
             ></UserInput>
@@ -108,7 +110,7 @@ class App extends React.Component {
 
         <Vendia ssn={this.state.value} setDataDMV={this.setDataDMV} setDataSS={this.setDataSS} setDataDOS={this.setDataDOS} setFile={this.setFile}></Vendia>
         
-        <Grid container item justifyContent="center" alignItems="center" gap={2}>
+        <Grid container item justifyContent="center" alignItems="center">
 
             { (this.state.dataDMV != null && this.state.dataDMV.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.dataDMV.items[0], this.state.file?.items[0]) }
 
@@ -121,12 +123,6 @@ class App extends React.Component {
             { (this.state.dataSS != null && this.state.dataSS.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.dataSS.items[0], this.state.file?.items[0]) }
 
             { (this.state.dataDOS != null && this.state.dataDOS.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.dataDOS.items[0], this.state.file?.items[0]) } 
-            {/* <Grid item xs = "4" sm = "4">
-            { (this.state.data != null && this.state.data.items != null &&  isTypeValid("ssn")) && createSSCard(this.state.data.items[0]) }
-            </Grid>
-            <Grid item xs = "4" sm = "4">
-            { (this.state.data != null && this.state.data.items != null &&  isTypeValid("dos")) && createDOSCard(this.state.data.items[0]) }
-            </Grid> */}
 
         </Grid>
 
@@ -178,4 +174,18 @@ function formatSSN(value) {
   }
 
   return `${value.slice(0, 3)}-${value.slice(3, 5)}-${value.slice(5, 9)}`;
+}
+
+function formatDOB(value) {
+  
+  if (!value) return value;
+  const dobLength = value.length;
+
+  // This removes all unnecessary characters
+  value = value.replace(/[^\d]/g, '');
+
+	if (dobLength < 3) return value;
+	else if (dobLength < 5) return `${value.slice(0, 2)}/${value.slice(2, 4)}`;
+
+  return `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4, 8)}`;
 }

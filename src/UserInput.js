@@ -11,7 +11,6 @@ export default class UserInput extends React.Component{
 
    constructor(props){
       super(props)
-      console.log(this.props.showPassword);
    }
    
    render(){
@@ -23,6 +22,8 @@ export default class UserInput extends React.Component{
             direction="column"
             alignItems="center"
             justifyContent="center"
+            gap={2}
+
          >
          <TextField
             id = "outlined-adornment-password"
@@ -50,6 +51,7 @@ export default class UserInput extends React.Component{
          ></TextField>
          <TextField
             label = "Date of Birth"
+            value = {this.props.dobValue}
             onChange = {this.props.handleChangeDOB}
          ></TextField>
 
