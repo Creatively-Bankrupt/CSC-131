@@ -52,28 +52,29 @@ const ResponsiveAppBar = () => {
             TRAVELX
           </Typography>
 
-          <AirplaneTicketIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'white', }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              alignItems: 'center',
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'white',
-              textDecoration: 'none',
-            }}
-          >
-            TRAVELX
-          </Typography>
+          <AirplaneTicketIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'white', }}>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                alignItems: 'center',
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'white',
+                textDecoration: 'none',
+              }}
+            >
+              TRAVELX
+            </Typography>
+          </AirplaneTicketIcon>
 
-           {/* Links at top commented out until we have functionality  */}
+          {/* Links at top commented out until we have functionality  */}
 
           {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

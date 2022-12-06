@@ -114,11 +114,20 @@ class App extends React.Component {
         
         <Grid container item justifyContent="center" alignItems="center">
            
-            { (this.state.dataDMV != null && this.state.dataDMV.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "dmv")) && createCard("Department of Motor Vehicles", this.state.dataDMV.items[0], this.state.file?.items[0]) }
+            { (this.state.dataDMV != null && this.state.dataDMV.items != null 
+              && this.state.file != null && this.state.file.items != null 
+              && isTypeValid(this.state.type, "dmv")) 
+              && createCard("Department of Motor Vehicles", this.state.dataDMV.items[0], this.state.file?.items[0]) }
 
-            { (this.state.dataSS != null && this.state.dataSS.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "ssn")) && createCard("Social Security", this.state.dataSS.items[0], this.state.file?.items[0]) }
+            { (this.state.dataSS != null && this.state.dataSS.items != null 
+              && this.state.file != null && this.state.file.items != null 
+              && isTypeValid(this.state.type, "ssn")) 
+              && createCard("Social Security", this.state.dataSS.items[0], this.state.file?.items[0]) }
 
-            { (this.state.dataDOS != null && this.state.dataDOS.items != null && this.state.file != null && this.state.file.items != null && isTypeValid(this.state.type, "dos")) && createCard("Department of State", this.state.dataDOS.items[0], this.state.file?.items[0]) } 
+            { (this.state.dataDOS != null && this.state.dataDOS.items != null 
+              && this.state.file != null && this.state.file.items != null 
+              && isTypeValid(this.state.type, "dos")) 
+              && createCard("Department of State", this.state.dataDOS.items[0], this.state.file?.items[0]) } 
 
         </Grid>
 

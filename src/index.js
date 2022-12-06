@@ -8,13 +8,11 @@ const theme = createTheme({
     primary: {
       main: '#00b4d8', 
       darker: '#03045e'
-
     },
     secondary: {
       main: '#caf0f8'
     }
   }
-
 }); 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
