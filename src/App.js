@@ -108,7 +108,9 @@ class App extends React.Component {
           <Buttons value={this.state.type} setType={this.setType}></Buttons>
         </Grid>
 
-        <Vendia ssn={this.state.value} setDataDMV={this.setDataDMV} setDataSS={this.setDataSS} setDataDOS={this.setDataDOS} setFile={this.setFile}></Vendia>
+        <Grid style={{ minHeight: '10vh' }}>
+          <Vendia ssn={this.state.value} setDataDMV={this.setDataDMV} setDataSS={this.setDataSS} setDataDOS={this.setDataDOS} setFile={this.setFile}></Vendia>
+        </Grid>
         
         <Grid container item justifyContent="center" alignItems="center">
            

@@ -104,8 +104,8 @@ class Vendia extends React.Component {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            style={{ minHeight: '10vh' }}>
-            <Button 
+         >
+         <Button 
             variant="outlined"
             size="small"
             onClick={this.handleSubmitList}>Search</Button>

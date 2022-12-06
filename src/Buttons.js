@@ -20,6 +20,9 @@ export default function ToggleButtonsMultiple(props) {
       value={props.value}
       onChange={handleFormat}
       aria-label="text formatting"
+      sx={{
+        padding: "20px",
+      }}
     >
       <ToggleButton value="dmv" aria-label="bold">
         DMV
