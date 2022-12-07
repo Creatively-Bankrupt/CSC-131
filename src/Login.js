@@ -11,16 +11,13 @@ import Menu from '@mui/material/Menu';
 import Grid from '@mui/material/Grid';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import { Card } from '@mui/material';
-import GoogleIcon from '@mui/icons-material/Google';
 import Divider from '@mui/material/Divider';
+import { useEffect, useState } from 'react';
+import jwt_decode from "jwt-decode";
 
 export default function MenuAppBar() {
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
-  
-    const handleChange = (event) => {
-      setAuth(event.target.checked);
-    };
   
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
@@ -29,6 +26,37 @@ export default function MenuAppBar() {
     const handleClose = () => {
       setAnchorEl(null);
     };
+	
+	const [ user, setUser ] = useState({});
+	
+	function handleCallbackResponse(response){
+		console.log("Encoded JWT ID token: " + response.credential);
+		var userObject = jwt_decode(response.credential);
+		console.log(userObject);
+		setUser(userObject);
+		document.getElementById("signInDiv").hidden = true;
+	}
+	
+	function handleSignOut(event) {
+	  setUser({});
+	  document.getElementById("signInDiv").hidden = false;
+	}
+	
+	useEffect(() => {
+	  /* global google */
+	  google.accounts.id.initialize({
+		  client_id: "727101166460-12lpocj8ogvsj4s0tf5rtve1rovauvei.apps.googleusercontent.com",
+		  callback: handleCallbackResponse
+	  });
+	  
+	  google.accounts.id.renderButton(
+	    document.getElementById("signInDiv"),
+		{ theme: "outline", size: "large"}
+		);
+	}, []);
+	
+// If no user: show sign in button
+// If user: show logout button
 
   return (
     <div style= {{ 
@@ -37,8 +65,8 @@ export default function MenuAppBar() {
       backgroundSize: 'cover',
       height: "100vh",
       backgroundRepeat: 'no-repeat'}}>
-
-    <AppBar position="static" color = {"primary"} style={styles.paperContainer}>
+    
+<AppBar position="static" color = {"primary"} style={styles.paperContainer}>
       <Toolbar>
         <AirplaneTicketIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'white' }} />
         <Typography
@@ -125,22 +153,20 @@ export default function MenuAppBar() {
           Sign In
         </Button>
 
-        <Divider sx = {{fontFamily: 'Montserrat', color: '#2D69CC', width:'90%', height:'2%'}}>or</Divider>
-
-        <Typography 
-            variant="h6" 
-            align="center"
-            sx = {{
-              fontFamily: 'Montserrat',
-              fontWeight: 500, 
-              color: '#2D69CC'
-              }}>
-            Login with 
-          </Typography>
-
-          <Button variant="outlined" startIcon={<GoogleIcon />} sx={{ m: 1, width: '25ch',color: '#2D69CC'}}>
-            Google
-          </Button>
+        <Divider sx = {{fontFamily: 'Montserrat', color: '#2D69CC', width:'90%', height:'2%'}}>or </Divider>
+        <Grid container justifyContent="center" alignItems="center" style={{paddingTop: '15px' }} >
+          <div id="signInDiv"></div>
+	          { Object.keys(user).length != 0 &&
+	            <button onClick={ (e) => handleSignOut(e)}> Sign Out </button>
+	          }
+	
+	          { user &&
+	            <div>
+	              <img src={user.picture}></img>
+		            <h3>{user.name}</h3>
+	          </div>
+	          }
+           </Grid> 
 
           <Divider sx = {{width:'80%', height:'2%'}}></Divider>
 
@@ -150,6 +176,8 @@ export default function MenuAppBar() {
        </Card> 
     </Grid>
   </div>
+
+  
 );
 }
 
