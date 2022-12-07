@@ -31,7 +31,11 @@ class Vendia extends React.Component {
         }
       }
     });
-    
+    if (this.props.dob === listPerson.items[0].dob) {
+      alert("Match!")
+    } else {
+      alert("Incorrect Match!")
+    }
     try{
       this.props.setDataDMV(listPerson);
     } catch(error){
