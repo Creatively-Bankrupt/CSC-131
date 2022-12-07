@@ -31,10 +31,14 @@ class Vendia extends React.Component {
         }
       }
     });
-    if (this.props.dob === listPerson.items[0].dob) {
-      alert("Match!")
-    } else {
-      alert("Incorrect Match!")
+    try{
+      if (this.props.dob === listPerson.items[0].dob) {
+        alert("Match!")
+      } else {
+        alert("Incorrect Match!")
+      }
+    } catch(error) {
+      alert("Social Security number not found")
     }
     try{
       this.props.setDataDMV(listPerson);
