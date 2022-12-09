@@ -17,6 +17,7 @@ class App extends React.Component {
       file: '',
       type: [ 'dmv' ],
       dobValue: '',
+      handleChange: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeDOB = this.handleChangeDOB.bind(this);
@@ -60,6 +61,7 @@ class App extends React.Component {
   handleChange (event) {
     const ssnValue = event.target.value;
     this.setState({value: formatSSN(ssnValue)});
+    console.log(this.state.value);
   }
 
   handleChangeDOB (event) {

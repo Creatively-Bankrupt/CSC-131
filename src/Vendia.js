@@ -1,10 +1,10 @@
 import { createVendiaClient } from "@vendia/client";
 import { Grid, Button } from "@mui/material";
-import { ssUni } from './SsClient'
-import { dosUni } from './DosClient'
-
+import { ssUni } from './SsClient';
+import { dosUni } from './DosClient';
 
 import React from 'react';
+
 
 export const client = createVendiaClient({
   apiUrl: `https://525isitnw3.execute-api.us-west-2.amazonaws.com/graphql/`,
@@ -31,25 +31,22 @@ class Vendia extends React.Component {
         }
       }
     });
-    try{
-      if (this.props.dob === listPerson.items[0].dob) {
-        alert("Match!")
-      } else {
-        alert("Incorrect Match!")
-      }
-    } catch(error) {
-      alert("Social Security number not found")
+    if (this.props.dob === listPerson.items[0].dob) {
+      alert("Match!")
+    } else {
+      alert("Incorrect Match!")
     }
     try{
       this.props.setDataDMV(listPerson);
     } catch(error){
       this.props.setDataDMV(null);
     }
-
+    console.log(this.props.dob)
+    console.log(this.props.ssn)
     const listFile = await storage.files.list({
       filter: {
         sourceKey: {
-           contains: "012345678" || "944291900" || "318291" || "31231251" || "354472169" || "657456456" || "964131610"
+           contains: this.props.ssn
         }
       }
     });
