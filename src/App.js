@@ -5,6 +5,7 @@ import UserInput from "./UserInput";
 import Vendia from "./Vendia";
 import Buttons from "./Buttons";
 import Cards from "./Cards";
+import Alert from '@mui/material/Alert';
 
 class App extends React.Component {
   
@@ -17,7 +18,11 @@ class App extends React.Component {
       file: '',
       type: [ 'dmv' ],
       dobValue: '',
-      handleChange: ''
+      handleChange: '',
+      
+      sendAlert: false,
+      alertType: 'success',
+      alertMessage: 'Data obtained'
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeDOB = this.handleChangeDOB.bind(this);
@@ -29,6 +34,10 @@ class App extends React.Component {
     this.setDataSS = this.setDataSS.bind(this);
     this.setDataDOS = this.setDataDOS.bind(this);
     this.setDataDMV = this.setDataDMV.bind(this);
+
+    this.sendAlert = this.sendAlert.bind(this);
+    this.setAlertMessage = this.setAlertMessage.bind(this);
+    this.setAlertType = this.setAlertType.bind(this);
   }
 
   setType (newType) {
@@ -56,6 +65,23 @@ class App extends React.Component {
 
   setFile (newFile){
     this.setState({file: newFile});
+  }
+
+  sendAlert (seconds){
+    if (!this.state.sendAlert) {
+      this.setState({sendAlert: true})
+      setTimeout(() => {
+        this.setState({sendAlert: false})
+      }, seconds * 1000);
+    }
+  }
+
+  setAlertMessage (alert){
+    this.setState({alertMessage: alert});
+  }
+
+  setAlertType (alert){
+    this.setState({alertType: alert});
   }
 
   handleChange (event) {
@@ -86,6 +112,10 @@ class App extends React.Component {
 
           <Grid item xs = {12}>
             <Other />  {/** Travel X Logo */}
+            
+            { (this.state.sendAlert && <Alert variant="filled" severity={this.state.alertType}>
+              {this.state.alertMessage}
+            </Alert>) }
           </Grid>
 
           <Grid item xs = {12} alignItems="center" justifyContent="center">
@@ -111,7 +141,17 @@ class App extends React.Component {
         </Grid>
 
         <Grid style={{ minHeight: '10vh' }}>
-          <Vendia dob={this.state.dobValue} ssn={this.state.value} setDataDMV={this.setDataDMV} setDataSS={this.setDataSS} setDataDOS={this.setDataDOS} setFile={this.setFile}></Vendia>
+          <Vendia 
+            dob={this.state.dobValue} 
+            ssn={this.state.value} 
+            setDataDMV={this.setDataDMV} 
+            setDataSS={this.setDataSS} 
+            setDataDOS={this.setDataDOS} 
+            setFile={this.setFile} 
+            sendAlert={this.sendAlert}
+            setAlertMessage={this.setAlertMessage}
+            setAlertType={this.setAlertType}
+          ></Vendia>
         </Grid>
         
         <Grid container item justifyContent="center" alignItems="center">

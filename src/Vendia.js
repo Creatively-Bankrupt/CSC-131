@@ -31,30 +31,42 @@ class Vendia extends React.Component {
         }
       }
     });
-    if (this.props.dob === listPerson.items[0].dob) {
-      alert("Match!")
-    } else {
-      alert("Incorrect Match!")
-    }
-    try{
-      this.props.setDataDMV(listPerson);
-    } catch(error){
-      this.props.setDataDMV(null);
-    }
-    console.log(this.props.dob)
-    console.log(this.props.ssn)
+
     const listFile = await storage.files.list({
       filter: {
         sourceKey: {
-           contains: this.props.ssn
+          contains: this.props.ssn
         }
       }
     });
 
+    this.props.sendAlert(5);
+    if (listPerson.items[0] == null) {
+      this.props.setDataDMV(null);
+      this.props.setFile(null);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
+      return;
+    }
+    
+    if (this.props.dob != listPerson.items[0].dob) {
+      this.props.setDataDMV(null);
+      this.props.setFile(null);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
+      return;
+    }
+  
     try{
+      this.props.setDataDMV(listPerson);
       this.props.setFile(listFile);        
+      this.props.setAlertMessage("Matching successful");
+      this.props.setAlertType("success");
     } catch(error){
-        this.props.setFile(null);
+      this.props.setDataDMV(null);
+      this.props.setFile(null);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
     }
 
   }
@@ -69,28 +81,74 @@ class Vendia extends React.Component {
       }
     });
 
+    this.props.sendAlert(5);
+    if (listPerson.items[0] == null) {
+      this.props.setDataSS(null);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
+      return;
+    }
+    
+    if (this.props.dob != listPerson.items[0].dob) {
+      this.props.setDataSS(null);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
+      return;
+    }
+  
     try{
       this.props.setDataSS(listPerson);
+      this.props.setAlertMessage("Matching successful");
+      this.props.setAlertType("success");
     } catch(error){
       this.props.setDataSS(null);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
     }
 
   }
 
   // Search Department of State
   async listPersonDOS(ssn) {
-    const listPerson = await dosUni.person.list({
-      filter: {
-        ssn: {
-           contains: ssn, 
+      const listPerson = await dosUni.person.list({
+        filter: {
+          ssn: {
+            contains: ssn, 
+          }
         }
-      }
-    });
+      });
 
+      const listFile = await storage.files.list({
+        filter: {
+          sourceKey: {
+            contains: this.props.ssn
+          }
+        }
+      });
+
+    this.props.sendAlert(5);
+    if (listPerson.items[0] == null) {
+      return;
+    }
+    
+    if (this.props.dob != listPerson.items[0].dob) {
+      this.props.setDataDOS(null);
+      this.props.setFile(listFile);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
+      return;
+    }
+  
     try{
       this.props.setDataDOS(listPerson);
+      this.props.setFile(listFile);
+      this.props.setAlertMessage("Matching successful");
+      this.props.setAlertType("success");
     } catch(error){
       this.props.setDataDOS(null);
+      this.props.setFile(null);
+      this.props.setAlertMessage("Matching unsuccessful");
+      this.props.setAlertType("error");
     }
 
   }
@@ -103,7 +161,9 @@ class Vendia extends React.Component {
       this.listPersonSS(this.props.ssn);
       this.listPersonDOS(this.props.ssn);
     } else {
-      alert("ERROR: PLEASE ENTER THE FULL SOCIAL SECURITY NUMBER")
+      this.props.sendAlert(5);
+      this.props.setAlertType("error");
+      this.props.setAlertMessage("Enter in a full 11 digit SSN");
     }
   }
 
