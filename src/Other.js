@@ -1,67 +1,50 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
+import IconButton from '@mui/material/IconButton';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import Alert from '@mui/material/Alert';
+
 
 // const pages = ['Flights', 'Customer Support', 'Refunds'];
 
+const ResponsiveAppBar = (props) => {
 
-const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  function handleSignOut(event) {
+	  props.setUser({});
+    props.setAuth(false);
+	  document.getElementById("signInDiv").hidden = false;
+	}
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
-    <AppBar position="static" color = {"primary"} style={styles.paperContainer}>
-      <Container  maxWidth="xl">
-        <Toolbar disableGutters >
-          <AirplaneTicketIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'white' }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'white',
-              textDecoration: 'none',
-            }}
-          >
-            TRAVELX
-          </Typography>
-
-          <AirplaneTicketIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'white', }}>
+    <>
+      <AppBar color={"primary"} style={styles.paperContainer}>
+        <Container>
+          <Toolbar disableGutters >
+            <AirplaneTicketIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'white' }} />
             <Typography
-              variant="h5"
+              variant="h6"
               noWrap
               component="a"
               href=""
               sx={{
-                alignItems: 'center',
                 mr: 2,
-                display: { xs: 'flex', md: 'none' },
+                display: { xs: 'none', md: 'flex' },
                 flexGrow: 1,
                 fontFamily: 'monospace',
                 fontWeight: 700,
@@ -72,32 +55,48 @@ const ResponsiveAppBar = () => {
             >
               TRAVELX
             </Typography>
-          </AirplaneTicketIcon>
 
-          {/* Links at top commented out until we have functionality  */}
-
-          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                sx = {{ color: 'white'}}
               >
-                {page}
-              </Button>
-            ))}
-          </Box> */}
-          
-        </Toolbar>
-      </Container>
-    </AppBar>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleSignOut}>Logout</MenuItem>
+              </Menu>
+            </div>
+          </Toolbar>
+        </Container>
+      </AppBar>
+
+    </>
   );
 }
 
 const styles = {
   paperContainer: {
     backgroundImage:`url(${"https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-sidebar-graphic-art-image_1258-83074.jpg"})`, 
-    minHeight : '12vh',
+    minHeight : '10vh',
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
   }

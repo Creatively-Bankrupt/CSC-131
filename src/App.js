@@ -6,6 +6,7 @@ import Vendia from "./Vendia";
 import Buttons from "./Buttons";
 import Cards from "./Cards";
 import Alert from '@mui/material/Alert';
+import Login from './Login';
 
 class App extends React.Component {
   
@@ -22,8 +23,12 @@ class App extends React.Component {
       
       sendAlert: false,
       alertType: 'success',
-      alertMessage: 'Data obtained'
+      alertMessage: 'Data obtained',
+
+      auth: false,
+      user: {}
     }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeDOB = this.handleChangeDOB.bind(this);
     this.handleClickShowPassword  = this.handleClickShowPassword.bind(this);
@@ -38,6 +43,10 @@ class App extends React.Component {
     this.sendAlert = this.sendAlert.bind(this);
     this.setAlertMessage = this.setAlertMessage.bind(this);
     this.setAlertType = this.setAlertType.bind(this);
+
+    this.setAuth = this.setAuth.bind(this);
+    this.setUser = this.setUser.bind(this);
+
   }
 
   setType (newType) {
@@ -65,6 +74,14 @@ class App extends React.Component {
 
   setFile (newFile){
     this.setState({file: newFile});
+  }
+
+  setAuth (auth){
+    this.setState({auth: auth});
+  }
+
+  setUser (user){
+    this.setState({user: user});
   }
 
   sendAlert (seconds){
@@ -111,14 +128,20 @@ class App extends React.Component {
         <Grid container spacing={30}>
 
           <Grid item xs = {12}>
-            <Other />  {/** Travel X Logo */}
+            { (!this.state.auth) && <Login auth={this.state.auth} setAuth={this.setAuth} user={this.state.user} setUser={this.setUser}/> }
             
-            { (this.state.sendAlert && <Alert variant="filled" severity={this.state.alertType}>
-              {this.state.alertMessage}
-            </Alert>) }
+            { (this.state.auth) && <Other auth={this.state.auth} setAuth={this.setAuth} user={this.state.user} setUser={this.setUser}/> }
+
+            { (this.state.sendAlert && 
+            <div style={{ position: "absolute", top: 100, left: 0, right: 0, zIndex: 999 }}>
+              <Alert variant="filled" severity={this.state.alertType}>
+                {this.state.alertMessage}
+              </Alert>
+            </div>)
+             }
           </Grid>
 
-          <Grid item xs = {12} alignItems="center" justifyContent="center">
+          { (this.state.auth) && <Grid item xs = {12} alignItems="center" justifyContent="center">
             <UserInput 
               password={this.state.value}
               showPassword={this.state.showPassword}
@@ -128,19 +151,19 @@ class App extends React.Component {
               handleClickShowPassword={this.handleClickShowPassword}
               handleMouseDownPassword={this.handleMouseDownPassword}
             ></UserInput>
-          </Grid>
+          </Grid> }
         </Grid>
         
-        <Grid 
+        { (this.state.auth) && <Grid 
           container 
           direction="column"
           alignItems="center"
           justifyContent="center"
           style={{ minHeight: '10vh' }}>
           <Buttons value={this.state.type} setType={this.setType}></Buttons>
-        </Grid>
+        </Grid> }
 
-        <Grid style={{ minHeight: '10vh' }}>
+        { (this.state.auth) && <Grid style={{ minHeight: '10vh' }}>
           <Vendia 
             dob={this.state.dobValue} 
             ssn={this.state.value} 
@@ -152,9 +175,9 @@ class App extends React.Component {
             setAlertMessage={this.setAlertMessage}
             setAlertType={this.setAlertType}
           ></Vendia>
-        </Grid>
+        </Grid> }
         
-        <Grid container item justifyContent="center" alignItems="center">
+        { (this.state.auth) && <Grid container item justifyContent="center" alignItems="center">
            
             { (this.state.dataDMV != null && this.state.dataDMV.items != null 
               && this.state.file != null && this.state.file.items != null 
@@ -171,7 +194,7 @@ class App extends React.Component {
               && isTypeValid(this.state.type, "dos")) 
               && createCard("Department of State", this.state.dataDOS.items[0], this.state.file?.items[0]) } 
 
-        </Grid>
+        </Grid> }
 
       </>
 

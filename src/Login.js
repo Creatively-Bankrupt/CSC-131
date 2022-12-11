@@ -1,44 +1,27 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import Grid from '@mui/material/Grid';
-import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import { Card } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
+import Other from './Other';
 
-export default function MenuAppBar() {
-    const [auth, setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-  
-    const handleMenu = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-	
-	const [ user, setUser ] = useState({});
-	
+export default function MenuAppBar(props) {
+		
 	function handleCallbackResponse(response){
 		console.log("Encoded JWT ID token: " + response.credential);
 		var userObject = jwt_decode(response.credential);
 		console.log(userObject);
-		setUser(userObject);
+		props.setUser(userObject);
+    console.log(props.auth);
+    console.log(props.setAuth(true));
+    console.log(props.auth);
+    props.setAuth(true);
 		document.getElementById("signInDiv").hidden = true;
 	}
 	
 	function handleSignOut(event) {
-	  setUser({});
+	  props.setUser({});
+    props.setAuth(false);
 	  document.getElementById("signInDiv").hidden = false;
 	}
 	
@@ -53,6 +36,7 @@ export default function MenuAppBar() {
 	    document.getElementById("signInDiv"),
 		{ theme: "outline", size: "large"}
 		);
+    
 	}, []);
 	
 // If no user: show sign in button
@@ -65,116 +49,32 @@ export default function MenuAppBar() {
       backgroundSize: 'cover',
       height: "100vh",
       backgroundRepeat: 'no-repeat'}}>
+
+    <Other></Other>
     
-<AppBar position="static" color = {"primary"} style={styles.paperContainer}>
-      <Toolbar>
-        <AirplaneTicketIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'white' }} />
-        <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'white',
-              textDecoration: 'none',
-            }}
-          >
-            TRAVELX
-          </Typography>
-        {auth && (
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              sx = {{ color: 'white'}}
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Menu>
-          </div>
-        )}
-      </Toolbar>
-    </AppBar>
     <Grid container direction="row" justifyContent="flex-end" alignItems="stretch">
-    <Card variant="outlined" sx={{xs: 'auto', height: '90vh', width: '75vh', background: 'rgba(255,255,255, 0.9)'}} >
-      <Grid container direction="column" justifyContent="center" alignItems="center" style={{height:'100vh' }}>
-          <Typography 
-            variant="h3" 
-            align="center"
-            sx = {{
-              fontFamily: 'Montserrat',
-              fontWeight: 500, 
-              color: '#2D69CC'
-              }}>
-            Login 
-          </Typography>
+      <Card variant="outlined" sx={{xs: 'auto', height: '100vh', width: '75vh', background: 'rgba(255,255,255, 0.9)'}} >
+        <Grid container direction="column" justifyContent="center" alignItems="center" style={{height:'100vh' }}>
 
-          <TextField
-            required
-            label="Email"
-            id="outlined-start-adornment"
-            sx={{ m: 1, width: '35ch'}}
-          />
+          <Grid container justifyContent="center" alignItems="center" style={{paddingTop: '15px' }} direction="column">
+            <div id="signInDiv"></div>
 
-          <TextField
-          required
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          sx={{ m: 1, width: '35ch'}}
-        />
-        <Button variant="contained" alignItems="center" sx= {{bgcolor: '#2D69CC', color: '#FFFFFF', fontFamily: 'monospace',m: 1, width: '25ch'}}>
-          Sign In
-        </Button>
-
-        <Divider sx = {{fontFamily: 'Montserrat', color: '#2D69CC', width:'90%', height:'2%'}}>or </Divider>
-        <Grid container justifyContent="center" alignItems="center" style={{paddingTop: '15px' }} >
-          <div id="signInDiv"></div>
-	          { Object.keys(user).length != 0 &&
-	            <button onClick={ (e) => handleSignOut(e)}> Sign Out </button>
-	          }
-	
-	          { user &&
-	            <div>
-	              <img src={user.picture}></img>
-		            <h3>{user.name}</h3>
-	          </div>
-	          }
+            { Object.keys(props.user).length != 0 &&
+              <button onClick={ (e) => handleSignOut(e)}> Sign Out </button>
+            }
+  
+            { props.user &&
+              <div>
+                <img src={props.user.picture}></img>
+                <h3>{props.user.name}</h3>
+              </div>
+            }
            </Grid> 
-
-          <Divider sx = {{width:'80%', height:'2%'}}></Divider>
-
-          <Button variant="text" sx = {{fontFamily: 'Montserrat',fontWeight: 500, color: '#2D69CC'}}>Need an account? Sign up.</Button>
 
         </Grid>
        </Card> 
     </Grid>
+  
   </div>
 
   
