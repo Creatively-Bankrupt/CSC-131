@@ -3,7 +3,9 @@ import Grid from '@mui/material/Grid';
 import { Card } from '@mui/material';
 import { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
-import Other from './Other';
+import Typography from '@mui/material/Typography';
+import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
+import IconButton from '@mui/material/IconButton';
 
 export default function MenuAppBar(props) {
 		
@@ -49,27 +51,53 @@ export default function MenuAppBar(props) {
       backgroundSize: 'cover',
       height: "100vh",
       backgroundRepeat: 'no-repeat'}}>
-
-    <Other></Other>
     
     <Grid container direction="row" justifyContent="flex-end" alignItems="stretch">
       <Card variant="outlined" sx={{xs: 'auto', height: '100vh', width: '75vh', background: 'rgba(255,255,255, 0.9)'}} >
         <Grid container direction="column" justifyContent="center" alignItems="center" style={{height:'100vh' }}>
 
           <Grid container justifyContent="center" alignItems="center" style={{paddingTop: '15px' }} direction="column">
-            <div id="signInDiv"></div>
 
-            { Object.keys(props.user).length != 0 &&
-              <button onClick={ (e) => handleSignOut(e)}> Sign Out </button>
-            }
-  
-            { props.user &&
-              <div>
-                <img src={props.user.picture}></img>
-                <h3>{props.user.name}</h3>
-              </div>
-            }
-           </Grid> 
+            <div style={{
+              backgroundImage: `url("https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-sidebar-graphic-art-image_1258-83074.jpg")`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}>
+              <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+
+                <AirplaneTicketIcon fontSize="large" sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'white' }} />
+                <Typography
+                  variant="h2"
+                  noWrap
+                  component="a"
+                  href=""
+                  sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    flexGrow: 1,
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: 'white',
+                    textDecoration: 'none',
+                  }}
+                >
+                  TRAVELX
+                </Typography>
+              </Grid>
+
+            </div>
+
+            <Grid sx={{m: 2}}>
+              <div id="signInDiv"></div>
+            </Grid>
+
+          </Grid> 
 
         </Grid>
        </Card> 
@@ -80,10 +108,3 @@ export default function MenuAppBar(props) {
   
 );
 }
-
-const styles = {
-  paperContainer: {
-    backgroundImage:`url(${"https://img.freepik.com/free-photo/abstract-dark-blurred-background-smooth-gradient-texture-color-shiny-bright-website-pattern-banner-header-sidebar-graphic-art-image_1258-83074.jpg"})`, 
-    minHeight : '10vh',
-  }
-};
